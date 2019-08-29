@@ -69,32 +69,95 @@ public class ArrayQueueTests {
 	}
 	
 	@Test
-	public void dequeueThrowsException() {
-		Queue<Integer> queue = new ArrayQueue<Integer>();
+	public void dequeueDog() {
+		Dog dog = new Dog();
+		dog.setNome("Filisbino");
+		Cat cat = new Cat();
+		cat.setNome("Pimpona");
+
+		ArrayQueue queue = new ArrayQueue();
+		queue.enqueue(dog);
+		queue.enqueue(cat);
+
+		assertEquals("Front deve retornar o elemento Filisbino","Filisbino", queue.dequeueDog().getNome());
+		assertEquals("Fila deve conter um elemento",1,queue.size());
+	}
+	
+	@Test
+	public void dequeueCat() {
+		Dog dog = new Dog();
+		dog.setNome("Filisbino");
+		Cat cat = new Cat();
+		cat.setNome("Pimpona");
+
+		ArrayQueue queue = new ArrayQueue();
+		queue.enqueue(dog);
+		queue.enqueue(cat);
+
+		assertEquals("Front deve retornar o elemento Pimpona","Pimpona", queue.dequeueCat().getNome());
+		assertEquals("Fila deve conter um elemento",1,queue.size());
+	}
+	
+	@Test
+	public void dequeueAnyThrowsException() {
+		ArrayQueue queue = new ArrayQueue();
 		try {
-			queue.dequeue();
-			fail("Fila deve gerar exceÃ§ao EmptyQueueException");
+			queue.dequeueAny();
+			fail("Fila deve gerar exceção EmptyQueueException");
+		}catch(EmptyQueueException ignored) {
+		}
+	}
+	
+	@Test
+	public void dequeueDogThrowsException() {
+		Cat cat = new Cat();
+		cat.setNome("Pimpona");
+
+		ArrayQueue queue = new ArrayQueue();
+		queue.enqueue(cat);
+		try {
+			queue.dequeueDog();
+			fail("Fila deve gerar exceção EmptyQueueException");
+		}catch(EmptyQueueException ignored) {
+		}
+	}
+	
+	@Test
+	public void dequeueCatThrowsException() {
+		Dog dog = new Dog();
+		dog.setNome("Filisbino");
+
+		ArrayQueue queue = new ArrayQueue();
+		queue.enqueue(dog);
+		try {
+			queue.dequeueCat();
+			fail("Fila deve gerar exceção EmptyQueueException");
 		}catch(EmptyQueueException ignored) {
 		}
 	}
 	
 	@Test
 	public void frontThrowsException() {
-		Queue<Integer> queue = new ArrayQueue<Integer>();
+		ArrayQueue queue = new ArrayQueue();
 		try {
 			queue.front();
-			fail("Fila deve gerar exceÃ§ao EmptyQueueException");
+			fail("Fila deve gerar exceção EmptyQueueException");
 		}catch(EmptyQueueException ignored) {
 		}
 	}
 	
 	@Test
 	public void enqueueThrowsException() {
-		Queue<Integer> queue = new ArrayQueue<Integer>(1);
+		Dog dog = new Dog();
+		dog.setNome("Filisbino");
+		Cat cat = new Cat();
+		cat.setNome("Pimpona");
+
+		ArrayQueue queue = new ArrayQueue(1);
 		try {
-			queue.enqueue(1);
-			queue.enqueue(2);
-			fail("Fila deve gerar exceÃ§ao FullQueueException");
+			queue.enqueue(dog);
+			queue.enqueue(cat);
+			fail("Fila deve gerar exceção FullQueueException");
 		}catch(FullQueueException ignored) {
 		}
 	}
